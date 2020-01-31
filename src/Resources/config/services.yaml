@@ -10,7 +10,7 @@ services:
         resource: '../../*'
         exclude: '../../{Resources,BecklynCacheBundle.php}'
 
-    Becklyn\Cache\Cache\CacheFactory:
+    Becklyn\Cache\Cache\SimpleCacheFactory:
         arguments:
             $appPool: '@cache.app'
             $systemPool: '@cache.system'
