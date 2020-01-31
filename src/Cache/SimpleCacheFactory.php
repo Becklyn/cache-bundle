@@ -7,7 +7,7 @@ use Symfony\Component\Cache\Marshaller\DefaultMarshaller;
 use Symfony\Component\Config\ConfigCacheFactory;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 
-class CacheFactory
+class SimpleCacheFactory
 {
     /** @var CacheItemPoolInterface */
     private $appPool;
