@@ -55,25 +55,20 @@ class ConfigCacheItem extends CacheItem
     protected function generateValue ()
     {
         $cache = $this->configCacheFactory->cache(
-            "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}",
+            "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}.serialized",
             function (ConfigCacheInterface $cache) : void
             {
-                $value = \var_export(
-                    $this->marshaller->marshall([parent::generateValue()], $failed)
-                );
+                $value = $this->marshaller->marshall([parent::generateValue()], $failed)[0];
 
                 if (!empty($failed))
                 {
                     throw new MarshallingFailedException("Marshalling the element failed.");
                 }
 
-                $cache->write(
-                    "<?php return {$value};",
-                    $this->trackedResources
-                );
+                $cache->write($value, $this->trackedResources);
             }
         );
 
-        return $this->marshaller->unmarshall(\file_get_contents($cache->getPath()))[0] ?? null;
+        return $this->marshaller->unmarshall(\file_get_contents($cache->getPath()));
     }
 }
