@@ -1,0 +1,45 @@
+{
+    "name": "becklyn/cache",
+    "type": "symfony-bundle",
+    "description": "A cache bundle providing a simple (and fast) cache",
+    "homepage": "https://github.com/Becklyn/cache-bundle",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Becklyn Studios",
+            "homepage": "https://becklyn.com/"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "symfony/cache": "^4.3 || ^5.0",
+        "symfony/config": "^4.3 || ^5.0",
+        "symfony/dependency-injection": "^4.3 || ^5.0",
+        "symfony/framework-bundle": "^4.3 || ^5.0",
+        "symfony/http-kernel": "^4.3 || ^5.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "symfony/phpunit-bridge": "^5.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev",
+            "dev-next": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Becklyn\\Cache\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Becklyn\\Cache\\": "tests/"
+        }
+    }
+}
