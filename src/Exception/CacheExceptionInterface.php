@@ -4,5 +4,4 @@ namespace Becklyn\Cache\Exception;
 
 interface CacheExceptionInterface
 {
-
 }

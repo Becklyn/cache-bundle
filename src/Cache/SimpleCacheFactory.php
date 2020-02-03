@@ -29,10 +29,6 @@ class SimpleCacheFactory
 
 
     /**
-     * @param CacheItemPoolInterface $appPool
-     * @param CacheItemPoolInterface $systemPool
-     * @param string                 $cacheDir
-     * @param bool                   $isDebug
      */
     public function __construct (
         CacheItemPoolInterface $appPool,
@@ -50,9 +46,6 @@ class SimpleCacheFactory
 
 
     /**
-     * @param string     $key
-     * @param callable   $generator
-     * @param array|null $resources
      */
     public function getItem (string $key, callable $generator, ?array $resources = null) : SimpleCacheItemInterface
     {

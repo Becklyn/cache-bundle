@@ -10,7 +10,7 @@ class CacheItem implements SimpleCacheItemInterface
     /** @var CacheItemPoolInterface */
     private $pool;
 
-    /** @var SimpleCacheItemInterface */
+    /** @var CacheItemInterface */
     private $item;
 
     /** @var callable */
