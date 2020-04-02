@@ -71,4 +71,41 @@ class ConfigCacheItem extends CacheItem
 
         return $this->marshaller->unmarshall(\file_get_contents($cache->getPath()));
     }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function remove () : void
+    {
+        parent::remove();
+        $this->removeConfigCache();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function warmup () : void
+    {
+        parent::warmup();
+
+        $this->removeConfigCache();
+        $this->generateValue();
+    }
+
+
+    /**
+     *
+     */
+    private function removeConfigCache () : void
+    {
+        $cache = $this->configCacheFactory->cache(
+            "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}.serialized",
+            function () {}
+        );
+
+        @\unlink($cache->getPath());
+    }
+
 }
