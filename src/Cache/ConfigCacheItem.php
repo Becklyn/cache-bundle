@@ -8,6 +8,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Marshaller\MarshallerInterface;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ConfigCacheItem extends CacheItem
 {
@@ -54,7 +55,20 @@ class ConfigCacheItem extends CacheItem
      */
     protected function generateValue ()
     {
-        $cache = $this->configCacheFactory->cache(
+        return $this->marshaller->unmarshall(
+            \file_get_contents(
+                $this->getConfigCache()->getPath()
+            )
+        );
+    }
+
+
+    /**
+     * Generates the config cache
+     */
+    private function getConfigCache () : ConfigCacheInterface
+    {
+        return $this->configCacheFactory->cache(
             "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}.serialized",
             function (ConfigCacheInterface $cache) : void
             {
@@ -68,8 +82,6 @@ class ConfigCacheItem extends CacheItem
                 $cache->write($value, $this->trackedResources);
             }
         );
-
-        return $this->marshaller->unmarshall(\file_get_contents($cache->getPath()));
     }
 
 
@@ -78,8 +90,8 @@ class ConfigCacheItem extends CacheItem
      */
     public function remove () : void
     {
-        parent::remove();
         $this->removeConfigCache();
+        parent::remove();
     }
 
 
@@ -88,10 +100,10 @@ class ConfigCacheItem extends CacheItem
      */
     public function warmup () : void
     {
-        parent::warmup();
-
         $this->removeConfigCache();
         $this->generateValue();
+
+        parent::warmup();
     }
 
 
@@ -100,12 +112,7 @@ class ConfigCacheItem extends CacheItem
      */
     private function removeConfigCache () : void
     {
-        $cache = $this->configCacheFactory->cache(
-            "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}.serialized",
-            function () {}
-        );
-
-        @\unlink($cache->getPath());
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->getConfigCache()->getPath());
     }
-
 }

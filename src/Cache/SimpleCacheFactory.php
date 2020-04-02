@@ -49,7 +49,7 @@ class SimpleCacheFactory
      */
     public function getItem (string $key, callable $generator, ?array $resources = null) : SimpleCacheItemInterface
     {
-        if (!empty($resources))
+        if (null !== $resources)
         {
             return new ConfigCacheItem(
                 $this->systemPool,
