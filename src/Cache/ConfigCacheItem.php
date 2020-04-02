@@ -8,6 +8,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Marshaller\MarshallerInterface;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ConfigCacheItem extends CacheItem
 {
@@ -54,7 +55,20 @@ class ConfigCacheItem extends CacheItem
      */
     protected function generateValue ()
     {
-        $cache = $this->configCacheFactory->cache(
+        return $this->marshaller->unmarshall(
+            \file_get_contents(
+                $this->getConfigCache()->getPath()
+            )
+        );
+    }
+
+
+    /**
+     * Generates the config cache
+     */
+    private function getConfigCache () : ConfigCacheInterface
+    {
+        return $this->configCacheFactory->cache(
             "{$this->cacheDir}/becklyn/cache/{$this->item->getKey()}.serialized",
             function (ConfigCacheInterface $cache) : void
             {
@@ -68,7 +82,37 @@ class ConfigCacheItem extends CacheItem
                 $cache->write($value, $this->trackedResources);
             }
         );
+    }
 
-        return $this->marshaller->unmarshall(\file_get_contents($cache->getPath()));
+
+    /**
+     * @inheritDoc
+     */
+    public function remove () : void
+    {
+        $this->removeConfigCache();
+        parent::remove();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function warmup () : void
+    {
+        $this->removeConfigCache();
+        $this->generateValue();
+
+        parent::warmup();
+    }
+
+
+    /**
+     *
+     */
+    private function removeConfigCache () : void
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->getConfigCache()->getPath());
     }
 }
