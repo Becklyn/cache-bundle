@@ -13,7 +13,7 @@ class SimpleCacheFactory
     private CacheItemPoolInterface $systemPool;
     private string $cacheDir;
     private bool $isDebug;
-    private ?ConfigCacheFactoryInterface $configCacheFactory;
+    private ?ConfigCacheFactoryInterface $configCacheFactory = null;
     private DefaultMarshaller $marshaller;
 
 
