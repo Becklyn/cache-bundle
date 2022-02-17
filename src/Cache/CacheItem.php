@@ -7,17 +7,11 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class CacheItem implements SimpleCacheItemInterface
 {
-    /** @var CacheItemPoolInterface */
-    private $pool;
-
-    /** @var CacheItemInterface */
-    private $item;
-
+    private CacheItemPoolInterface $pool;
+    private CacheItemInterface $item;
     /** @var callable */
     private $generator;
-
-    /** @var bool */
-    private $isDebug;
+    private bool $isDebug;
 
 
     public function __construct (
@@ -35,7 +29,7 @@ class CacheItem implements SimpleCacheItemInterface
 
 
     /**
-     * @inheritDoc
+     * @return mixed
      */
     public function get ()
     {
@@ -86,6 +80,8 @@ class CacheItem implements SimpleCacheItemInterface
 
     /**
      * Generates a new value
+     *
+     * @return mixed
      */
     protected function generateValue ()
     {

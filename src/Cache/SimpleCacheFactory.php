@@ -9,27 +9,14 @@ use Symfony\Component\Config\ConfigCacheFactoryInterface;
 
 class SimpleCacheFactory
 {
-    /** @var CacheItemPoolInterface */
-    private $appPool;
-
-    /** @var CacheItemPoolInterface */
-    private $systemPool;
-
-    /** @var string */
-    private $cacheDir;
-
-    /** @var bool */
-    private $isDebug;
-
-    /** @var ConfigCacheFactoryInterface|null */
-    private $configCacheFactory;
-
-    /** @var DefaultMarshaller */
-    private $marshaller;
+    private CacheItemPoolInterface $appPool;
+    private CacheItemPoolInterface $systemPool;
+    private string $cacheDir;
+    private bool $isDebug;
+    private ?ConfigCacheFactoryInterface $configCacheFactory;
+    private DefaultMarshaller $marshaller;
 
 
-    /**
-     */
     public function __construct (
         CacheItemPoolInterface $appPool,
         CacheItemPoolInterface $systemPool,
@@ -45,8 +32,6 @@ class SimpleCacheFactory
     }
 
 
-    /**
-     */
     public function getItem (string $key, callable $generator, ?array $resources = null) : SimpleCacheItemInterface
     {
         if (null !== $resources)

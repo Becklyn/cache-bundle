@@ -12,24 +12,13 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class ConfigCacheItem extends CacheItem
 {
-    /** @var ConfigCacheFactoryInterface */
-    private $configCacheFactory;
-
-    /** @var string */
-    private $cacheDir;
-
-    /** @var CacheItemInterface */
-    private $item;
-
-    /** @var MarshallerInterface */
-    private $marshaller;
-
-    /** @var array */
-    private $trackedResources;
+    private ConfigCacheFactoryInterface $configCacheFactory;
+    private string $cacheDir;
+    private CacheItemInterface $item;
+    private MarshallerInterface $marshaller;
+    private array $trackedResources;
 
 
-    /**
-     */
     public function __construct (
         CacheItemPoolInterface $pool,
         CacheItemInterface $item,
@@ -51,7 +40,7 @@ class ConfigCacheItem extends CacheItem
 
 
     /**
-     * @inheritDoc
+     * @return mixed
      */
     protected function generateValue ()
     {
@@ -107,9 +96,6 @@ class ConfigCacheItem extends CacheItem
     }
 
 
-    /**
-     *
-     */
     private function removeConfigCache () : void
     {
         $filesystem = new Filesystem();

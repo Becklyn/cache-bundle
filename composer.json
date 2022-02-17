@@ -1,37 +1,28 @@
 {
     "name": "becklyn/cache",
-    "type": "symfony-bundle",
     "description": "A cache bundle providing a simple (and fast) cache",
-    "homepage": "https://github.com/Becklyn/cache-bundle",
     "license": "BSD-3-Clause",
+    "type": "symfony-bundle",
     "authors": [
         {
             "name": "Becklyn Studios",
             "homepage": "https://becklyn.com/"
         }
     ],
+    "homepage": "https://github.com/Becklyn/cache-bundle",
     "require": {
-        "php": "^7.2",
+        "php": ">=7.4",
         "ext-json": "*",
-        "symfony/cache": "^4.3 || ^5.0",
-        "symfony/config": "^4.3 || ^5.0",
-        "symfony/dependency-injection": "^4.3 || ^5.0",
-        "symfony/filesystem": "^4.3 || ^5.0",
-        "symfony/framework-bundle": "^4.3 || ^5.0",
-        "symfony/http-kernel": "^4.3 || ^5.0"
+        "symfony/cache": "^5.4.3 || ^6.0.3",
+        "symfony/config": "^5.4.3 || ^6.0.3",
+        "symfony/dependency-injection": "^5.4.3 || ^6.0.3",
+        "symfony/filesystem": "^5.4.3 || ^6.0.3",
+        "symfony/framework-bundle": "^5.4.3 || ^6.0.3",
+        "symfony/http-kernel": "^5.4.4 || ^6.0.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "symfony/phpunit-bridge": "^5.0"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.x-dev",
-            "dev-next": "1.x-dev"
-        }
+        "symfony/phpunit-bridge": "^5.4.3 || ^6.0.3"
     },
     "autoload": {
         "psr-4": {
@@ -41,6 +32,15 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\Becklyn\\Cache\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev",
+            "dev-next": "1.x-dev"
         }
     }
 }

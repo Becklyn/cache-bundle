@@ -1,4 +1,4 @@
-| Q             | A                                                                     |
+| Q             | A
 | ------------- | --------------------------------------------------------------------- |
 | BC breaks?    | yes/no                                                                |
 | New feature?  | yes/no <!-- don't forget to update CHANGELOG.md -->                   |
